@@ -1,0 +1,18 @@
+name: hotel-booking-env
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9
+  - pandas
+  - scikit-learn
+  - flask
+  - numpy
+  - gunicorn  # for production deployment
+  - pip
+  - matplotlib  # optional for visualization
+  - seaborn  # optional for visualization
+  - jupyter  # optional for notebooks
+  - pip:
+      - flask-wtf  # optional for form validation
+      - waitress   # alternative production server for Windows
