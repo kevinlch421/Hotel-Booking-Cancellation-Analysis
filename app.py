@@ -1,6 +1,9 @@
-from flask import Flask, render_template, request, jsonify
+import flask
+from flask import Flask, render_template, request
 import pandas as pd
 import pickle
+import socket
+from contextlib import closing
 
 app = Flask(__name__)
 
@@ -60,5 +63,13 @@ def predict():
         features=form_data
     )
 
+def find_free_port():
+    """Find a free port to run the server on"""
+    with closing(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as s:
+        s.bind(('', 0))
+        return s.getsockname()[1]
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5001, debug=True)
+    port = find_free_port()
+    print(f"Running on port {port}")
+    app.run(host="0.0.0.0", port=port, debug=True)
